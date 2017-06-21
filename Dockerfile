@@ -8,19 +8,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # 3/ remove config files while removing apps
 RUN echo "force-unsafe-io" > /etc/dpkg/dpkg.cfg.d/02apt-speedup && \
     echo "Acquire::http {No-Cache=True;};" > /etc/apt/apt.conf.d/no-cache && \
-    echo "APT::Get::Purge \"true\"" >> /etc/apt/apt.conf
+    echo "APT::Get::Purge \"true\";" >> /etc/apt/apt.conf
 
-# Declare x2go repository
-RUN apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
-    echo "# X2Go Repository (release builds)" > /etc/apt/sources.list.d/x2go.list && \
-    echo "deb http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
-    echo "# X2Go Repository (sources of release builds)" >> /etc/apt/sources.list.d/x2go.list && \
-    echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list
-
-# Install in that order :
-#   - Bash tools
-#   - LXDE & some apps ( Firefox, Gimp, LibreOffice & Thunderbird )
-#   - x2go
+# Upgrade system and install pre-requiresites
 RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
@@ -37,8 +27,19 @@ RUN apt-get update && \
         sshfs \
         synaptic \
         wget \
-        software-properties-common && \
-    apt-get install -y \
+        software-properties-common
+
+# Declare x2go repository
+RUN apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
+    echo "# X2Go Repository (release builds)" > /etc/apt/sources.list.d/x2go.list && \
+    echo "deb http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
+    echo "# X2Go Repository (sources of release builds)" >> /etc/apt/sources.list.d/x2go.list && \
+    echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list
+
+# Install :
+#   - LXDE & some apps ( Firefox, Gimp, LibreOffice & Thunderbird )
+#   - x2go
+RUN apt-get install -y \
         lxde \
         firefox-esr \
         gimp \
@@ -55,8 +56,7 @@ RUN apt-get update && \
         mythes-fr \
         thunderbird \
         thunderbird-l10n-fr \
-        mail-notification && \
-    apt-get install -y \
+        mail-notification \
         x2goserver \
         x2goserver-xsession &&
 
