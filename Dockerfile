@@ -30,17 +30,13 @@ RUN apt-get update && \
         wget \
         software-properties-common
 
-# Declare x2go repository
+# Declare x2go repository, then install LXDE ( + base apps : Firefox, Gimp, LibreOffice & Thunderbird ) & x2go
 RUN apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
     echo "# X2Go Repository (release builds)" > /etc/apt/sources.list.d/x2go.list && \
     echo "deb http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
     echo "# X2Go Repository (sources of release builds)" >> /etc/apt/sources.list.d/x2go.list && \
-    echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list
-
-# Install :
-#   - LXDE & some apps ( Firefox, Gimp, LibreOffice & Thunderbird )
-#   - x2go
-RUN apt-get update && \
+    echo "deb-src http://packages.x2go.org/debian stretch main" >> /etc/apt/sources.list.d/x2go.list && \
+    apt-get update && \
     apt-get install -y \
         lxde \
         firefox-esr \
@@ -72,7 +68,6 @@ RUN apt-get autoclean &&\
     apt-get clean && \
     apt-get autoremove && \
     dpkg -P $(dpkg -l | awk '$1~/^rc$/{print $2}') && \
-    aptitude purge ~c && \
     rm -rf /tmp/*
 
 RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
