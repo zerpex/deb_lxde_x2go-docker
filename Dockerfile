@@ -15,6 +15,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
         apt-transport-https \
+        apt-tools \
         aptitude \
         ca-certificates \
         curl \
@@ -58,18 +59,12 @@ RUN apt-get install -y \
         thunderbird-l10n-fr \
         mail-notification \
         x2goserver \
-        x2goserver-xsession &&
+        x2goserver-xsession
 
 # Update sshd settings
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
     sed -i "s/PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     sed -i "s/#PasswordAuthentication/PasswordAuthentication/g" /etc/ssh/sshd_config
-
-# Install Google Chrome
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
-    dpkg -i google-chrome*.deb && \
-    apt-get install -f && \
-    ln -s /chrome.sh /usr/bin/chrome
 
 # Make some cleaning
 RUN apt-get autoclean &&\
