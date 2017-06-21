@@ -40,7 +40,8 @@ RUN apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
 # Install :
 #   - LXDE & some apps ( Firefox, Gimp, LibreOffice & Thunderbird )
 #   - x2go
-RUN apt-get install -y \
+RUN apt-get update && \
+    apt-get install -y \
         lxde \
         firefox-esr \
         gimp \
