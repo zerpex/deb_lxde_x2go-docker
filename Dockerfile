@@ -15,7 +15,7 @@ RUN apt-get update && \
     apt-get upgrade -y && \
     apt-get install -y \
         apt-transport-https \
-        apt-tools \
+        apt-utils \
         aptitude \
         ca-certificates \
         curl \
