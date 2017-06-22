@@ -67,7 +67,6 @@ RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSep
 RUN apt-get autoclean &&\
     apt-get clean && \
     apt-get autoremove && \
-    dpkg -P $(dpkg -l | awk '$1~/^rc$/{print $2}') && \
     rm -rf /tmp/*
 
 RUN mkdir -p /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix
