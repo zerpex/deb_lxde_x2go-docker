@@ -3,19 +3,18 @@ version: '3'
 services:
   adunaphel:
     image: zerpex/deb_lxde_x2go
-    container_name: client-adunaphel_debian
-    hostname: adunaphel
-    domainname: jayjay.pm
+    container_name: desktop_debian-lxde-x2go
     volumes:
-      - ./files/adunaphel_home:/home
-      - /mnt/incoming:/mnt/incoming
+      - ./files/home:/home
       - /etc/localtime:/etc/localtime:ro
     restart: always
     environment:
-      - TIME_ZONE=Europe/Paris
-      - LANG=fr_FR
-      - CODEPAGE=UTF8
-      - ROOT_PASS=
+      - TIME_ZONE=Europe/Paris            # Default to Europe/Paris
+      - LANG=fr_FR                        # Default to fr_FR  
+      - CODEPAGE=UTF8                     # Default to UTF8
+      - USER=logan                        # Default user "logan"
+      - USER_PASS=                        # Will be generated randomly if not set
+      - ROOT_PASS=                        # Will be generated randomly if not set
     ports:
       - "18000:22"
 
