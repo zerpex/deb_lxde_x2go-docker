@@ -59,8 +59,8 @@ RUN apt-key adv --recv-keys --keyserver keys.gnupg.net E1F958385BFE2B6E && \
         x2goserver-xsession
 
 # Fixes "No Session for PID" error on login
-RUN echo "session required pam_loginuid.so" >> /etc/pam.d/lxdm && \
-    echo "session required pam_systemd.so" >> /etc/pam.d/lxdm
+RUN echo "session required pam_loginuid.so" >> /etc/pam.d/login && \
+    echo "session required pam_systemd.so" >> /etc/pam.d/login
 
 # Update sshd settings
 RUN mkdir -p /var/run/sshd && sed -i "s/UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
