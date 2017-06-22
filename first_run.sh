@@ -2,11 +2,13 @@
 
 # Set timezone & locale vars
 TZ="${TIME_ZONE:-Europe/Paris}"
-CP="${TIME_ZONE:-UTF-8}" 
+CP="${CODEPAGE:-UTF-8}" 
 LANG="${LANGUAGE:-fr_FR}" 
 USR="${USER:-logan}"
 UPASS="${USER_PASS:-$(pwgen -s 12 1)}"
 PASS="${ROOT_PASS:-$(pwgen -s 12 1)}"
+
+export LANG
 
 if [ -f /.first_run ]; then
         exit 0
@@ -14,9 +16,13 @@ fi
 
 # Set locale (fix the locale warnings)
 localedef -v -c -i $LANG -f $CP $LANG.$CP || :
+echo "$TZ" > /etc/timezone
+dpkg-reconfigure -f noninteractive tzdata
+echo "$LANG.$CP $CP" > /etc/locale.gen
+locale-gen --purge $LANG.$CP
+echo -e 'LANG="$LANG.$CP"\nLANGUAGE="$LANG"\n' > /etc/default/locale
+dpkg-reconfigure --frontend=noninteractive locales
 update-locale LANG=$LANG.$CP
-echo "$TZ" > /etc/timezone && \
-dpkg-reconfigure --frontend noninteractive tzdata
 
 
 _word=$( [ ${ROOT_PASS} ] && echo "preset" || echo "random" )
