@@ -34,7 +34,7 @@ Session type : LXDE
 ## Environnement variables :
 **- TIME_ZONE** : Default is Europe/Paris
 
-**- LANG** : Default is fr_FR  
+**- LANGUAGE** : Default is fr_FR  
 
 **- CODEPAGE** : Default is UTF8  
 
