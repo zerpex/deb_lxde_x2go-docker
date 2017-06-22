@@ -17,7 +17,7 @@ services:
       - CODEPAGE=UTF8
       - ROOT_PASS=
     ports:
-      - 6080:22
+      - "18000:22"
 
 volumes:
   files:
