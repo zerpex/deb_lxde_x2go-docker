@@ -11,7 +11,7 @@ services:
     environment:
       - TIME_ZONE=Europe/Paris            # Default to Europe/Paris
       - LANGUAGE=fr_FR                    # Default to fr_FR  
-      - CODEPAGE=UTF8                     # Default to UTF8
+      - CODEPAGE=UTF-8                    # Default to UTF-8
       - USER=logan                        # Default user "logan"
       - USER_PASS=                        # Will be generated randomly if not set
       - ROOT_PASS=                        # Will be generated randomly if not set
