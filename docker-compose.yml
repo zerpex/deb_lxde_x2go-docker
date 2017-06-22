@@ -10,7 +10,7 @@ services:
     restart: always
     environment:
       - TIME_ZONE=Europe/Paris            # Default to Europe/Paris
-      - LANG=fr_FR                        # Default to fr_FR  
+      - LANGUAGE=fr_FR                    # Default to fr_FR  
       - CODEPAGE=UTF8                     # Default to UTF8
       - USER=logan                        # Default user "logan"
       - USER_PASS=                        # Will be generated randomly if not set
